@@ -1,0 +1,2 @@
+001 : "veuillez mettre un chemin valide ou n'entrez rien (téléchargera dans le repertoire actuel)"
+002 : "veuillez vérifier l'éxistence du fichier ou vérifier votre connexion Internet" 
