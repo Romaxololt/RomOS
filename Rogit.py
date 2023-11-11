@@ -4,7 +4,7 @@ def download_file(file_name):
     import json
     import base64
     # Remplacez ces valeurs par les vôtres
-    github_token = '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'
+    github_token = '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'
     repository_owner = 'Romaxololt'
     repository_name = 'RomOS'
     local_directory = os.path.dirname(os.path.realpath(__file__))
@@ -30,7 +30,7 @@ def update_file(file_name):
     import json
     import base64
     # Remplacez ces valeurs par les vôtres
-    github_token = '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'
+    github_token = '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'
     repository_owner = 'Romaxololt'
     repository_name = 'RomOS'
     local_directory = os.path.dirname(os.path.realpath(__file__))
@@ -82,7 +82,7 @@ def create_file(file_name):
     import base64
 
     # Remplacez ces valeurs par les vôtres
-    github_token = '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'
+    github_token = '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'
     repository_owner = 'Romaxololt'
     repository_name = 'RomOS'
     local_directory = os.path.dirname(os.path.realpath(__file__))
@@ -120,7 +120,7 @@ def file_exists_on_github(file_name):
     import requests
 
     # Replace these values with your own
-    github_token = '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'
+    github_token = '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'
     repository_owner = 'Romaxololt'
     repository_name = 'RomOS'
 
@@ -128,20 +128,29 @@ def file_exists_on_github(file_name):
     github_api_url = f'https://api.github.com/repos/{repository_owner}/{repository_name}/contents/{file_name}'
     headers = {'Authorization': f'token {github_token}'}
     response = requests.get(github_api_url, headers=headers)
-    print(response.status_code)
-    return response.status_code == 200
+    return response.status_code
 
 def UpdateAllSysteminGit():
-    SystemF = ["core.py", "Ctone.py", "ErreurLST.txt", "GT8+.py", "Log.txt", "Logo.ico", "Rogit.py", "RomaOSetup.py", "ROS.py", "Thor.py", "Wath-ER.py"]
+    SystemF = ["core.py", "Ctone.py", "ErreurLST.txt", "GT8+.py", "Log.txt", "Logo.ico", "RomaOSetup.py", "ROS.py", "Thor.py", "Wath-ER.py"]
+    allisgood = len(SystemF) * 200
+    final = 0
     for system in SystemF:
-        if file_exists_on_github(system):
+        code = file_exists_on_github(system)
+        final += code
+        if code == 200:
             update_file(system)
             print(f"{system} updated on GitHub")
         else:
             create_file(system)
             print(f"{system} created on GitHub")
-UpdateAllSysteminGit()
+    if final == allisgood:
+        print("All UPD is good")
+    else:
+        print(f"{final} is the addition of code")
+        print(f"{allisgood} is the code you should have")
 # create_file crée le fichier sur github depuis votre ordinateur
 # update_file met a jour le fichier sur github depuis votre ordinateur
 # download_file telecharge le fichier sur votre ordinateur depuis github 
+# fileexistongithub verifie l'existence d'un fichier sur github
+# Updateallsystemingit installe tout les fichier sur github depuis votre ordinateur 
 
