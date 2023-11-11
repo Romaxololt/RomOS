@@ -1,10 +1,14 @@
+
+def token():
+    return "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"
+
 def download_file(file_name):
     import os
     import requests
     import json
     import base64
     # Remplacez ces valeurs par les vôtres
-    github_token = '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'
+    github_token = token()
     repository_owner = 'Romaxololt'
     repository_name = 'RomOS'
     local_directory = os.path.dirname(os.path.realpath(__file__))
@@ -21,8 +25,10 @@ def download_file(file_name):
         # Enregistrer le fichier localement
         with open(os.path.join(local_directory, file_name), 'wb') as file:
             file.write(decoded_content)
+        return True
     else:
         print(f'Erreur lors du téléchargement de {file_name} depuis GitHub.')
+        return False
 
 def update_file(file_name):
     import os
@@ -30,10 +36,10 @@ def update_file(file_name):
     import json
     import base64
     # Remplacez ces valeurs par les vôtres
-    github_token = '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'
     repository_owner = 'Romaxololt'
     repository_name = 'RomOS'
     local_directory = os.path.dirname(os.path.realpath(__file__))
+    github_token = token()
     # Vérifier si le fichier existe localement
     local_path = os.path.join(local_directory, file_name)
     if os.path.exists(local_path):
@@ -65,13 +71,15 @@ def update_file(file_name):
                     response = requests.put(update_url, headers=headers, json=update_data)
 
                     if response.status_code == 200:
-                        print("")
+                        return True
                     else:
-                        print(f'')
+                        return False
             else:
                 print(f'Erreur lors de la suppression de {file_name} sur GitHub.')
+                return False
         else:
             print(f'Le fichier {file_name} n\'existe pas sur GitHub.')
+            return False
 
     else:
         print(f'Le fichier {file_name} n\'existe pas localement.')
@@ -82,10 +90,10 @@ def create_file(file_name):
     import base64
 
     # Remplacez ces valeurs par les vôtres
-    github_token = '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'
     repository_owner = 'Romaxololt'
     repository_name = 'RomOS'
     local_directory = os.path.dirname(os.path.realpath(__file__))
+    github_token = token()
 
     # Vérifier si le fichier existe localement
     local_path = os.path.join(local_directory, file_name)
@@ -107,9 +115,10 @@ def create_file(file_name):
                 response = requests.put(create_url, headers=headers, json=create_data)
 
                 if response.status_code == 201:
-                    print(f'')
+                    return True
                 else:
                     print(f'Erreur lors de la création du fichier {file_name} sur GitHub.')
+                    return False
         else:
             print(f'Le fichier {file_name} existe déjà sur GitHub. Utilisez la fonction update_file pour le mettre à jour.(nous le faisons pour vous :)')
             update_file(file_name)
@@ -120,9 +129,9 @@ def file_exists_on_github(file_name):
     import requests
 
     # Replace these values with your own
-    github_token = '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'
     repository_owner = 'Romaxololt'
     repository_name = 'RomOS'
+    github_token = token()
 
     # Build the URL to check if the file exists on GitHub
     github_api_url = f'https://api.github.com/repos/{repository_owner}/{repository_name}/contents/{file_name}'
