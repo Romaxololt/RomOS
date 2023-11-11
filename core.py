@@ -1,0 +1,11 @@
+import time
+print("core1")
+print("core2")
+print("core3")
+time.sleep(1)
+print("core4")
+time.sleep(1)
+print("core5")
+print("core6")
+print("CORE")
+time.sleep(1)
