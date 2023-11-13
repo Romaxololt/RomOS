@@ -1,6 +1,6 @@
 
 def token():
-    return "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"
+    return get_line(2)
 
 def download_file(file_name):
     import os
@@ -140,7 +140,7 @@ def file_exists_on_github(file_name):
     return response.status_code
 
 def UpdateAllSysteminGit():
-    SystemF = ["core.py", "Ctone.py", "ErreurLST.txt", "GT8+.py", "Log.txt", "Logo.ico", "RomaOSetup.py", "ROS.py", "Thor.py", "Wath-ER.py"]
+    SystemF = import_list_from_file(1)
     allisgood = len(SystemF) * 200
     final = 0
     for system in SystemF:
@@ -157,9 +157,49 @@ def UpdateAllSysteminGit():
     else:
         print(f"{final} is the addition of code")
         print(f"{allisgood} is the code you should have")
+####################### MACRO de Wath-ER ##############
+def export_list_to_file(line, my_list, file_pathl=False):
+    import os
+    if file_pathl == False:
+        repertoireACT = os.path.dirname(os.path.abspath(__file__))
+        file_pathl = os.path.join(repertoireACT, "Save.txt")
+    with open(file_pathl, 'r+') as file:
+        lines = file.readlines()
+        lines[line - 1] = ','.join(map(str, my_list)) + '\n'
+        file.seek(0)
+        file.writelines(lines)
+
+def import_list_from_file(line, file_pathl=False):
+    import os
+    if file_pathl == False:
+        repertoireACT = os.path.dirname(os.path.abspath(__file__))
+        file_pathl = os.path.join(repertoireACT, "Save.txt")
+    with open(file_pathl, 'r') as file:
+        lines = file.readlines()
+        try:
+            line_content = lines[line - 1]
+            my_list = line_content.strip().split(',')
+        except (IndexError):
+            print("Erreur lors de l'importation de la liste.")
+            my_list = []
+    return my_list
+
+def get_line(line_number):
+    """obtiens la ligne de Save.txt """
+    import os
+    repertoireACT = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(repertoireACT, "Save.txt")
+    try:
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+            if 1 <= line_number <= len(lines):
+                return lines[line_number - 1].strip()  # -1 pour correspondre à l'index 0
+            else:
+                return f"Erreur : La ligne {line_number} n'est pas valide dans le fichier."
+    except FileNotFoundError:
+        return f"Erreur : Le fichier '{file_path}' n'a pas été trouvé."
 # create_file crée le fichier sur github depuis votre ordinateur
 # update_file met a jour le fichier sur github depuis votre ordinateur
 # download_file telecharge le fichier sur votre ordinateur depuis github 
 # fileexistongithub verifie l'existence d'un fichier sur github
 # Updateallsystemingit installe tout les fichier sur github depuis votre ordinateur 
-
