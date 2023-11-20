@@ -1,0 +1,21 @@
+creation du setup
+	ajout de 2 erreur 
+creation du GT8.1
+	correction de 3 bugs
+grosse maj GT8+
+	fonctionnement du __th__ dans le script thor 
+creation script Thor:
+	script de bibliotheque pour le lancement d'un tache il la range dans le dossier spécifique (TaskF ou TaskF__th__)
+creation script CTone:
+	commande pour le gestionnaire des taches 
+creation script Wath-ER:
+	gestionnaire des bibliotheque ? integration de createrosshort pour si le raccourcis est supprimer et ajout de cette commande dans RomaOSetup.py
+maj de rogit:
+	rogit a maintenant la capacité de mettre a jour tout les fichiers systemes en une seule fonction
+maj de rogit:
+	capacité de savoir quelle fichier systemes posté avec la fonction import de Wath-ER
+creation du fichier LogPort.txt
+	fichire stockant toute les donnée de port dispo et utiliser
+patch de Rogit et detection d'erreur lors d'upload sur github corriger !
+creation de cryptroma et importation de Wath_ER fonctionnelle 
+upgrade de CryptROS avec le systeme d'encodage ROS et ajout de ce systeme à Wath_ER V 0.1.1
