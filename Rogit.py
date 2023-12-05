@@ -1,4 +1,4 @@
-
+#0.1
 def token():
     import Wath_ER
     github_token = (Wath_ER.unicryptdec(Wath_ER.get_line(2)))
@@ -9,6 +9,7 @@ def download_file(file_name):
     import requests
     import json
     import base64
+    import Wath_ER as we
     # Remplacez ces valeurs par les vôtres
     github_token = token()
     repository_owner = 'Romaxololt'
@@ -37,6 +38,7 @@ def update_file(file_name):
     import requests
     import json
     import base64
+    import Wath_ER as we
     # Remplacez ces valeurs par les vôtres
     repository_owner = 'Romaxololt'
     repository_name = 'RomOS'
@@ -90,6 +92,7 @@ def create_file(file_name):
     import os
     import requests
     import base64
+    import Wath_ER as we
 
     # Remplacez ces valeurs par les vôtres
     repository_owner = 'Romaxololt'
@@ -142,23 +145,36 @@ def file_exists_on_github(file_name):
     return response.status_code
 
 def UpdateAllSysteminGit():
+    import Wath_ER as we
     SystemF = import_list_from_file(1)
     allisgood = len(SystemF) * 200
+    barre = we.BarreDeProgression(len(SystemF))
     final = 0
     for system in SystemF:
         code = file_exists_on_github(system)
         final += code
         if code == 200:
+            line = we.get_line_Git(system, 1).replace("#", '')
+            line = line.rstrip('\r')
+            try:
+                authcode = float(line) + 0.1
+                authcode = round(authcode, 1)
+            except ValueError:
+                print(line)
+                print(system)
+            we.writeL(f"#{authcode}", 1, system)
             update_file(system)
-            print(f"{system} updated on GitHub")
         else:
             create_file(system)
             print(f"{system} created on GitHub")
+        barre.add(1)
+        barre.afficher()
     if final == allisgood:
         print("All UPD is good")
     else:
         print(f"{final} is the addition of code")
         print(f"{allisgood} is the code you should have")
+
 ####################### MACRO de Wath-ER ##############
 def export_list_to_file(line, my_list, file_pathl=False):
     import os
@@ -185,23 +201,9 @@ def import_list_from_file(line, file_pathl=False):
             print("Erreur lors de l'importation de la liste.")
             my_list = []
     return my_list
-
-def get_line(line_number):
-    """obtiens la ligne de Save.txt """
-    import os
-    repertoireACT = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(repertoireACT, "Save.txt")
-    try:
-        with open(file_path, 'r') as file:
-            lines = file.readlines()
-            if 1 <= line_number <= len(lines):
-                return lines[line_number - 1].strip()  # -1 pour correspondre à l'index 0
-            else:
-                return f"Erreur : La ligne {line_number} n'est pas valide dans le fichier."
-    except FileNotFoundError:
-        return f"Erreur : Le fichier '{file_path}' n'a pas été trouvé."
 # create_file crée le fichier sur github depuis votre ordinateur
 # update_file met a jour le fichier sur github depuis votre ordinateur
 # download_file telecharge le fichier sur votre ordinateur depuis github 
 # fileexistongithub verifie l'existence d'un fichier sur github
 # Updateallsystemingit installe tout les fichier sur github depuis votre ordinateur 
+
