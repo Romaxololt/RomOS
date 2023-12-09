@@ -1,4 +1,4 @@
-#0.1
+#0.2
 def token():
     import Wath_ER
     github_token = (Wath_ER.unicryptdec(Wath_ER.get_line(2)))
@@ -144,11 +144,14 @@ def file_exists_on_github(file_name):
     response = requests.get(github_api_url, headers=headers)
     return response.status_code
 
-def UpdateAllSysteminGit():
+def UpdateSysteminGit(arg="all"):
     import Wath_ER as we
-    SystemF = import_list_from_file(1)
+    if arg == "all":
+        SystemF = import_list_from_file(1)
+    else:
+        SystemF=arg
     allisgood = len(SystemF) * 200
-    barre = we.BarreDeProgression(len(SystemF))
+    barre = we.BarreDeProgression(len(SystemF), "limit")
     final = 0
     for system in SystemF:
         code = file_exists_on_github(system)
@@ -206,4 +209,5 @@ def import_list_from_file(line, file_pathl=False):
 # download_file telecharge le fichier sur votre ordinateur depuis github 
 # fileexistongithub verifie l'existence d'un fichier sur github
 # Updateallsystemingit installe tout les fichier sur github depuis votre ordinateur 
-
+#fl = [""]
+#fl = "all"
